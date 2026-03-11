@@ -97,33 +97,6 @@ adv-XX-<topic>/
 
 3. **Select a project** — open the desired folder (e.g. `adv-00-docker`).
 
-## Building & Flashing
-
-### Build
-
-From the project directory:
-
-```bash
-cd adv-00-docker
-make all
-```
-
-To clean build artifacts:
-
-```bash
-make clean
-```
-
-### Flash & Debug
-
-Connect the NUCLEO-C031C6 board via USB, then:
-
-```bash
-make flash
-```
-
-This uses OpenOCD with the ST-LINK interface to program, verify, and reset the target.
-
 ## Documentation & Resources
 
 | Document | File |
