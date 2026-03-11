@@ -89,8 +89,6 @@ LoopFillZerobss:
   cmp r2, r4
   bcc FillZerobss
 
-/* Call static constructors */
-  bl __libc_init_array
 /* Call the application's entry point.*/
   bl main
 
@@ -260,6 +258,12 @@ g_pfnVectors:
 	.weak	USART2_IRQHandler
 	.thumb_set USART2_IRQHandler,Default_Handler
 
-	.weak	SystemInit
+  .section .text.SystemInit,"ax",%progbits
+  .weak SystemInit
+  .type SystemInit, %function
+SystemInit:
+  bx lr
+  .size SystemInit, .-SystemInit
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
