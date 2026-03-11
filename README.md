@@ -21,7 +21,6 @@ An advanced, project-based learning roadmap for embedded systems development on 
     - [Flash \& Debug](#flash--debug)
   - [Documentation \& Resources](#documentation--resources)
   - [Contributing](#contributing)
-  - [License](#license)
 
 ## Overview
 
@@ -60,7 +59,6 @@ Key learning objectives:
 ESH_roadmap_advanced/
 ├── adv-00-docker/              # Dockerized bare-metal blinky (Makefile build)
 ├── STM32C031C6/                # Datasheets & reference manuals
-├── LICENSE
 └── README.md
 ```
 
@@ -147,7 +145,3 @@ Contributions, suggestions, and bug reports are welcome. To contribute:
 4. Open a Pull Request against `master`.
 
 Please keep the existing project structure and coding style consistent.
-
-## License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
