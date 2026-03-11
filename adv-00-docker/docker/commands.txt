@@ -1,0 +1,5 @@
+docker build -t stm32c031-blinky docker/
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky make all
+docker run --rm -v ${PWD}:/workspace --device /dev/bus/usb:/dev/bus/usb stm32c031-blinky make flash
+docker run --rm -v ${PWD}:/workspace --device /dev/bus/usb:/dev/bus/usb stm32c031-blinky make flash-elf
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky make clean
