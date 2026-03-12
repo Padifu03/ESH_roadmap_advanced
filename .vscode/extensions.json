@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "STMicroelectronics.stm32-vscode-extension",
+    "ms-vscode.cpptools",
+    "ms-vscode.cmake-tools",
+    "ms-vscode.makefile-tools",
+    "ms-azuretools.vscode-docker",
+    "marus25.cortex-debug",
+    "ms-vscode.hexeditor",
+    "mhutchie.git-graph",
+    "bierner.github-markdown-preview"
+  ]
+}
