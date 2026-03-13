@@ -3,6 +3,7 @@
 [![Board: NUCLEO-C031C6](https://img.shields.io/badge/Board-NUCLEO--C031C6-green)](https://www.st.com/en/evaluation-tools/nucleo-c031c6.html)
 [![IDE: VS Code](https://img.shields.io/badge/IDE-VS%20Code-blue)](https://code.visualstudio.com/)
 [![Build: Make](https://img.shields.io/badge/Build-Make-orange)](https://www.gnu.org/software/make/)
+[![Build: Make%20%7C%20CMake](https://img.shields.io/badge/Build-Make%20%7C%20CMake-orange)](https://cmake.org/)
 
 An advanced, project-based learning roadmap for embedded systems development on the STM32C031C6T6 (Cortex-M0+). From here on, the focus shifts to design decisions, scalability, and long-term maintainability. You'll stop asking *"How do I make this peripheral work?"* and start asking *"How should this system be structured so it can grow, be reused, and be maintained?"*
 
@@ -17,8 +18,7 @@ An advanced, project-based learning roadmap for embedded systems development on 
   - [Projects](#projects)
   - [Getting Started](#getting-started)
   - [Building \& Flashing](#building--flashing)
-    - [Build](#build)
-    - [Flash \& Debug](#flash--debug)
+    - [adv-01-cmake](#adv-01-cmake)
   - [Documentation \& Resources](#documentation--resources)
   - [Contributing](#contributing)
 
@@ -51,6 +51,7 @@ Key learning objectives:
 | Docker | Latest | Reproducible build environment |
 | GNU ARM Embedded Toolchain | Latest | `arm-none-eabi-gcc` cross-compiler |
 | Make | Latest | Build automation |
+| CMake | Latest | Cross-platform firmware configuration and builds |
 | OpenOCD | Latest | On-chip programming & debugging |
 
 ## Repository Layout
@@ -58,6 +59,7 @@ Key learning objectives:
 ```text
 ESH_roadmap_advanced/
 ├── adv-00-docker/              # Dockerized bare-metal blinky (Makefile build)
+├── adv-01-cmake/               # Bare-metal blinky upgraded to a CMake workflow
 ├── STM32C031C6/                # Datasheets & reference manuals
 └── README.md
 ```
@@ -70,15 +72,16 @@ adv-XX-<topic>/
 ├── inc/                        # Header files (.h)
 ├── startup_stm32c031xx.S       # Vector table & startup code
 ├── stm32c031x6_flash.ld        # Linker script
-├── Makefile                    # Build configuration
+├── Makefile/CMake              # Build configuration
 └── build/                      # Build output (generated)
 ```
 
 ## Projects
 
 | # | Folder | Topic | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 00 | `adv-00-docker` | Docker Build Environment | Bare-metal blinky project built with a Makefile inside a Docker container. Demonstrates reproducible, host-independent firmware builds. |
+| 01 | `adv-01-cmake` | CMake Build Structure | Bare-metal blinky project migrated from a Makefile to a reusable ARM GCC CMake workflow with presets and a flash target. |
 
 ## Getting Started
 
@@ -95,7 +98,34 @@ adv-XX-<topic>/
    code .
    ```
 
+  When VS Code prompts for recommended workspace extensions, install them. In particular, `STMicroelectronics.stm32-vscode-extension` is recommended for STM32 device setup, STM32 tooling integration, and board-oriented workflows.
+
 3. **Select a project** — open the desired folder (e.g. `adv-00-docker`).
+
+## Building & Flashing
+
+### adv-01-cmake
+
+Configure the project:
+
+```bash
+cmake --preset debug
+cmake --preset release
+```
+
+Build the firmware:
+
+```bash
+cmake --build --preset debug
+cmake --build --preset release
+```
+
+Flash with OpenOCD:
+
+```bash
+cmake --build --preset debug --target flash
+cmake --build --preset release --target flash
+```
 
 ## Documentation & Resources
 
