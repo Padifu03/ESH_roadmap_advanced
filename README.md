@@ -19,6 +19,7 @@ An advanced, project-based learning roadmap for embedded systems development on 
   - [Getting Started](#getting-started)
   - [Building \& Flashing](#building--flashing)
     - [adv-01-cmake](#adv-01-cmake)
+    - [adv-02-docker-cmake](#adv-02-docker-cmake)
   - [Documentation \& Resources](#documentation--resources)
   - [Contributing](#contributing)
 
@@ -36,7 +37,7 @@ Key learning objectives:
 ## Hardware
 
 | | |
-|---|---|
+| --- | --- |
 | **MCU** | STM32C031C6T6 — ARM Cortex-M0+, 48 MHz, 32 KB Flash, 12 KB SRAM |
 | **Board** | NUCLEO-C031C6 |
 | **Debugger** | On-board ST-LINK/V2-1 (SWD) |
@@ -46,7 +47,7 @@ Key learning objectives:
 ## Prerequisites
 
 | Tool | Version | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | Visual Studio Code | Latest | Primary IDE |
 | Docker | Latest | Reproducible build environment |
 | GNU ARM Embedded Toolchain | Latest | `arm-none-eabi-gcc` cross-compiler |
@@ -60,6 +61,7 @@ Key learning objectives:
 ESH_roadmap_advanced/
 ├── adv-00-docker/              # Dockerized bare-metal blinky (Makefile build)
 ├── adv-01-cmake/               # Bare-metal blinky upgraded to a CMake workflow
+├── adv-02-docker-cmake/        # Dockerized ARM GCC workflow driven by CMake presets
 ├── STM32C031C6/                # Datasheets & reference manuals
 └── README.md
 ```
@@ -82,6 +84,7 @@ adv-XX-<topic>/
 | --- | --- | --- | --- |
 | 00 | `adv-00-docker` | Docker Build Environment | Bare-metal blinky project built with a Makefile inside a Docker container. Demonstrates reproducible, host-independent firmware builds. |
 | 01 | `adv-01-cmake` | CMake Build Structure | Bare-metal blinky project migrated from a Makefile to a reusable ARM GCC CMake workflow with presets and a flash target. |
+| 02 | `adv-02-docker-cmake` | Docker + CMake Workflow | Bare-metal blinky project that combines a Dockerized toolchain with a preset-based CMake build and OpenOCD flash flow. |
 
 ## Getting Started
 
@@ -100,7 +103,7 @@ adv-XX-<topic>/
 
   When VS Code prompts for recommended workspace extensions, install them. In particular, `STMicroelectronics.stm32-vscode-extension` is recommended for STM32 device setup, STM32 tooling integration, and board-oriented workflows.
 
-3. **Select a project** — open the desired folder (e.g. `adv-00-docker`).
+1. **Select a project** — open the desired folder (e.g. `adv-00-docker`).
 
 ## Building & Flashing
 
@@ -127,10 +130,32 @@ cmake --build --preset debug --target flash
 cmake --build --preset release --target flash
 ```
 
+### adv-02-docker-cmake
+
+Build the Docker image:
+
+```bash
+docker build -t stm32c031-blinky adv-02-docker-cmake/docker/
+```
+
+Configure and build the firmware inside the container:
+
+```bash
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --preset debug
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --build --preset debug
+```
+
+Clean or flash from the container:
+
+```bash
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --build --preset debug --target clean
+docker run --rm -v ${PWD}:/workspace --device /dev/bus/usb:/dev/bus/usb stm32c031-blinky cmake --build --preset debug --target flash
+```
+
 ## Documentation & Resources
 
 | Document | File |
-|---|---|
+| --- | --- |
 | STM32C031C6 Reference Manual | `stm32c031c6_RM.pdf` |
 | STM32C031C6 Datasheet | `stm32c031c6_datasheet.pdf` |
 | STM32C031C6 User Manual | `stm32c031c6_user_manual.pdf` |
