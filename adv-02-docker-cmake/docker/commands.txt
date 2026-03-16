@@ -1,0 +1,9 @@
+docker build -t stm32c031-blinky docker/
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --preset debug
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --build --preset debug
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --build --preset debug --target clean
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --preset release
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --build --preset release
+docker run --rm -v ${PWD}:/workspace stm32c031-blinky cmake --build --preset release --target clean
+docker run --rm -v ${PWD}:/workspace --device /dev/bus/usb:/dev/bus/usb stm32c031-blinky cmake --build --preset debug --target flash
+docker run --rm -v ${PWD}:/workspace --device /dev/bus/usb:/dev/bus/usb stm32c031-blinky cmake --build --preset release --target flash
